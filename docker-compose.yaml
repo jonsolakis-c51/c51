@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
+    volumes:
+      - data:/var/lib/mysql
+    networks:
+      - app
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - .:/var/www/c51
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  data:
