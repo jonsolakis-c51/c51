@@ -1,11 +1,20 @@
 FROM php:7.4-apache
 MAINTAINER jonsolakis@gmail.com
 
+
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    apt-utils \
+    git \
+    zip \
+    unzip
+
+
 # Install extensions
 RUN docker-php-ext-install pdo_mysql
 
 # Copy existing application directory contents
 COPY . /var/www/c51
+COPY .env.example /var/www/c51/.env
 WORKDIR /var/www/c51
 
 # Install composer
