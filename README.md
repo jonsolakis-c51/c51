@@ -1,24 +1,54 @@
-# Lumen PHP Framework
+# C51 Assignment
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+single page web application to show a list of offers, and their cashback values
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+###Technology Used
+- [Lumen](https://lumen.laravel.com/docs).
+- [Phpunit](https://phpunit.de/).
+- [Php](https://www.php.net/).
+- [Docker](https://www.docker.com/).
+- [Bootstrap](https://getbootstrap.com/).
 
-## Official Documentation
+###Requirements
+To run this application all you need is
+- docker
+- docker-compose
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+###Setup
+To Setup this appliation all you need to do is run
+``docker-compose up -d --build``
+the application will sleep for 60 seconds (DB should be created at this time) then it will
+migrate and seed the database before starting apache. you should be able to access the site
+at http://localhost:8080/
 
-## Contributing
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+###Design Decisions
 
-## Security Vulnerabilities
+####Code Design
+I wanted to try something different by implementing the repository pattern with lumen
+instead of using symfony which I was already comfortable with. Lumen is also a MVC architecture,
+Its just a slimmed down version of laravel. the repository pattern works very well
+with lumens's container. You are easily able to bind the concrete class to the abstraction.
+Doing this I able to easily inject the repository into the required classes with ease.
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+####test framework
+I Used phpunit for testing which comes prepackaged with most frameworks and is industry standard
 
-## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+####virtualization 
+I choose docker to run the application because of familiarity with it beforehand
+
+####web server
+I used apache for the web sever because originally i was just going to host with Php's built in webserver
+but was having issues originally, so I switched over to apache because of the easy setup
+
+###Unit Testing
+I have included 2 tests (1 integration and 1 unit) in this app. The integration test is a
+example of how you would have to integrate with the database to test out the controller.
+The Unit test also tests the same functionality but instead the repository is mocked and
+injected into the controller forcing it to return a certain set of data. This is an 
+example of how to test individual components without relying on 3rd party dependancies.
+
+To Run the Unit Tests you will have to ssh into the container
+```docker exec -it {containerID} bash``` and once inside the container Run:
+``./vendor/bin/phpunit``
