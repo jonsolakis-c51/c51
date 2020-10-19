@@ -9,12 +9,12 @@ single page web application to show a list of offers, and their cashback values
 - [Docker](https://www.docker.com/).
 - [Bootstrap](https://getbootstrap.com/).
 
-###Requirements
+### Requirements
 To run this application all you need is
 - docker
 - docker-compose
 
-###Setup
+### Setup
 To Setup this appliation all you need to do is run
 ``docker-compose up -d --build``
 the application will sleep for 60 seconds (DB should be created at this time) then it will
@@ -22,27 +22,27 @@ migrate and seed the database before starting apache. you should be able to acce
 at http://localhost:8080/
 
 
-###Design Decisions
+### Design Decisions
 
-####Code Design
+#### Code Design
 I wanted to try something different by implementing the repository pattern with lumen
 instead of using symfony which I was already comfortable with. Lumen is also a MVC architecture,
 Its just a slimmed down version of laravel. the repository pattern works very well
 with lumens's container. You are easily able to bind the concrete class to the abstraction.
 Doing this I able to easily inject the repository into the required classes with ease.
 
-####test framework
+#### Test Framework
 I Used phpunit for testing which comes prepackaged with most frameworks and is industry standard
 
 
-####virtualization 
+#### Virtualization 
 I choose docker to run the application because of familiarity with it beforehand
 
-####web server
+#### Web server
 I used apache for the web sever because originally i was just going to host with Php's built in webserver
 but was having issues originally, so I switched over to apache because of the easy setup
 
-###Unit Testing
+### Unit Testing
 I have included 2 tests (1 integration and 1 unit) in this app. The integration test is a
 example of how you would have to integrate with the database to test out the controller.
 The Unit test also tests the same functionality but instead the repository is mocked and
