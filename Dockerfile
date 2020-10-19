@@ -1,17 +1,6 @@
 FROM php:7.4-apache
 MAINTAINER jonsolakis@gmail.com
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    unzip \
-    curl
-
 # Install extensions
 RUN docker-php-ext-install pdo_mysql
 
@@ -30,7 +19,6 @@ RUN chown -R www-data:www-data /var/www
 
 
 # Set working directory
-#WORKDIR /var/www/html/c51/public
 CMD ["sh", "startup.sh"]
 
 
