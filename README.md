@@ -16,10 +16,10 @@ To run this application all you need is
 
 ### Setup
 To Setup this appliation all you need to do is run
-``docker-compose up -d --build``
+``docker-compose up --build``
 the application will sleep for 60 seconds (DB should be created at this time) then it will
-migrate and seed the database before starting apache. you should be able to access the site
-at http://localhost:8080/
+migrate and seed the database before starting apache. Once you see the database migrated
+in the logs, you should be able to access the site at http://localhost:8080/
 
 
 ### Design Decisions
@@ -47,7 +47,7 @@ I have included 2 tests (1 integration and 1 unit) in this app. The integration 
 example of how you would have to integrate with the database to test out the controller.
 The Unit test also tests the same functionality but instead the repository is mocked and
 injected into the controller forcing it to return a certain set of data. This is an 
-example of how to test individual components without relying on 3rd party dependancies.
+example of how to test individual components without relying on 3rd party dependencies.
 
 To Run the Unit Tests you will have to ssh into the container
 ```docker exec -it {containerID} bash``` and once inside the container Run:
